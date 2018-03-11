@@ -33,24 +33,69 @@ header {
   flex-wrap: wrap;
   padding: 15px;
   background-color: #fff;
+  height: 570px;
 }
 
 .card {
-  width: 25%;
+  width: 23%;
+  margin: 1%;
   perspective: 1000px;
 }
 
-.card-img:hover {
+.flipper {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.flipper:hover {
   transform: rotateY(-20deg);
   -webkit-box-shadow: 10px 0 30px -10px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 0 30px -10px rgba(0,0,0,0.75);
   box-shadow: 10px 0 30px -10px rgba(0,0,0,0.75);
 }
 
-.card-img {
-  max-width: 90%;
-  margin: 5px auto;
-  text-align: center;
-  display: block;
-  transition: 0.3s all ease;
+.flipper-open {
+  transform: rotateY(-180deg);
+}
+
+.flipper-open:hover {
+  transform: rotateY(-180deg);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.flipper,
+.card-back,
+.card-front {
+  height: 100%;
+  width: 100%;
+}
+
+.card-back,
+.card-front {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card-back {
+  z-index: 2;
+  background-color: #6fa8fd;
+}
+
+.card-front {
+  transform: rotateY(-180deg);
+  background-color: #fd6f76;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 800px) {
+  body {
+    max-width: 100%;
+  }
 }
