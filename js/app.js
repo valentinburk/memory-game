@@ -8,6 +8,10 @@ $(document).ready(function() {
   let movesCount = 0;
 
   $('.card').click(function() {
+    if ($(this).is('[data-success]')) {
+      return;
+    }
+
     const currentId = flipCard($(this));
 
     // if another card is open
