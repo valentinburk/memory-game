@@ -5,17 +5,21 @@
 $(document).ready(function() {
   let openedCardId = null;
   let ready = true;
+  let movesCount = 0;
 
   $('.card').click(function() {
     const currentId = flipCard($(this));
 
     // if another card is open
     if (openedCardId !== null) {
+      movesCount = updateMoves(movesCount);
+
       if (currentId === openedCardId) {
         setSuccess(currentId);
       } else {
         flipWrongCards();
       }
+
       // reset
       openedCardId = null;
     } else {
@@ -27,6 +31,17 @@ $(document).ready(function() {
 /**
  * Functions
  */
+
+/**
+ * @description Updates the element whis moves count and records new value
+ * @param {number} count Current number of moves
+ * @returns Incremented number of moves
+ */
+function updateMoves(count) {
+  const updated = count + 1;
+  $('#moves-count').text(updated);
+  return updated;
+}
 
 /**
  * @description Flips the given card and returns its id
