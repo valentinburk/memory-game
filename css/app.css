@@ -1,0 +1,56 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+/* General rules */
+body {
+  font-family: "Open Sans", arial, sans-serif;
+  max-width: 600px;
+  margin: 25px auto;
+  background: #f5f5f5;
+}
+
+header {
+  text-align: center;
+}
+
+/* Stats rules */
+.stats {
+  min-height: 50px;
+}
+
+.rating,
+.moves {
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+.reload {
+  float: right;
+}
+
+/* Board rules */
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px;
+  background-color: #fff;
+}
+
+.card {
+  width: 25%;
+  perspective: 1000px;
+}
+
+.card-img:hover {
+  transform: rotateY(-20deg);
+  -webkit-box-shadow: 10px 0 30px -10px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 0 30px -10px rgba(0,0,0,0.75);
+  box-shadow: 10px 0 30px -10px rgba(0,0,0,0.75);
+}
+
+.card-img {
+  max-width: 90%;
+  margin: 5px auto;
+  text-align: center;
+  display: block;
+  transition: 0.3s all ease;
+}
