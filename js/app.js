@@ -3,7 +3,7 @@
  */
 
 const MAX_NUMBER_OF_PICTURES = 18;
-const MEDIUM_LEVEL = 16;
+const EASY_LEVEL = 16;
 const HARD_LEVEL = 36;
 
 /**
@@ -11,13 +11,26 @@ const HARD_LEVEL = 36;
  */
 
 $(document).ready(function() {
-  $('.board').append(generateCards('medium', 'sweets'));
-
+  let difficulty = 'easy';
+  let category = 'sweets';
   let openedCardId = null;
   let ready = true;
   let movesCount = 0;
 
-  $('.card').click(function() {
+  // Set difficulty of the game
+  $('.difficulty').on('click', '.difficulty-level', function() {
+    difficulty = $(this).attr('data-difficulty');
+    hideAndShow($('.difficulty'), $('.category'), 200);
+  });
+
+  // Set category of cards
+  $('.category').on('click', '.category-type', function() {
+    category = $(this).attr('data-category');
+    setupBoard(difficulty, category);
+    hideAndShow($('.category'), $('.board'), 200);
+  });
+
+  $('.board').on('click', '.card', function() {
     if ($(this).is('[data-success]')) {
       return;
     }
@@ -46,17 +59,51 @@ $(document).ready(function() {
  * Generating board functions
  */
 
- /**
-  * @description Generates the DOM Fragment with cards on it
-  * @param {string} level Difficulty of the game - i.e. medium or hard
-  * @param {string} category Category of the cards
-  * @returns {DocumentFragment} DOM Fragment with cards on it
-  */
+/**
+ * @description Sets up the gaming board
+ * @param {string} difficulty Difficulty of the game
+ * @param {string} category Category of cards
+ */
+function setupBoard(difficulty, category) {
+  const board = $('.board');
+
+  const cards = generateCards(difficulty, category);
+  board.append(cards);
+
+  switch (difficulty) {
+    case 'easy':
+      break;
+    case 'hard':
+      board.css('width', '700px');
+      board.css('height', '700px');
+      board.children('.card').css('width', '14.6666%');
+      break;
+  }
+}
+
+/**
+ * @description Smoothly hides one element and shows another
+ * @param {jQuery} first Element to hide
+ * @param {jQuery} second Element to show
+ * @param {number} duration Duration of animation
+ */
+function hideAndShow(first, second, duration) {
+  first.fadeOut(duration, function() {
+    second.fadeIn(duration);
+  });
+}
+
+/**
+ * @description Generates the DOM Fragment with cards on it
+ * @param {string} level Difficulty of the game - i.e. medium or hard
+ * @param {string} category Category of the cards
+ * @returns {DocumentFragment} DOM Fragment with cards on it
+ */
 function generateCards(level, category) {
   let cardsNumber;
   switch (level) {
-    case 'medium':
-      cardsNumber = MEDIUM_LEVEL;
+    case 'easy':
+      cardsNumber = EASY_LEVEL;
       break;
     case 'hard':
       cardsNumber = HARD_LEVEL;
