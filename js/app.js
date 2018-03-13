@@ -14,29 +14,18 @@ const THREE_STARS_HARD = 25;
 
 let start;
 let timer;
-let difficulty = 'easy';
-let category = 'sweets';
-let openedCardId = null;
-let ready = true;
-let movesCount = 0;
+let difficulty;
+let category;
+let openedCardId;
+let ready;
+let movesCount;
 
 /**
  * Main Logic
  */
 
 $(document).ready(function() {
-  // Set difficulty of the game
-  $('.difficulty').on('click', '.difficulty-level', function() {
-    difficulty = $(this).attr('data-difficulty');
-    hideAndShow($('.difficulty'), $('.category'), 200);
-  });
-
-  // Set category of cards
-  $('.category').on('click', '.category-type', function() {
-    category = $(this).attr('data-category');
-    setupBoard();
-    hideAndShow($('.category'), $('.board'), 200);
-  });
+  startGame();
 
   $('.board').on('click', '.card', function() {
     if ($(this).is('[data-success]')) {
@@ -61,11 +50,50 @@ $(document).ready(function() {
       openedCardId = currentId;
     }
   });
+
+  // Set difficulty of the game
+  $('.difficulty').on('click', '.difficulty-level', function() {
+    difficulty = $(this).attr('data-difficulty');
+    hideAndShow($('.difficulty'), $('.category'), 200);
+  });
+
+  // Set category of cards
+  $('.category').on('click', '.category-type', function() {
+    category = $(this).attr('data-category');
+    setupBoard();
+    hideAndShow($('.category'), $('.board'), 200);
+  });
+
+  $('.reload').click(startGame);
 });
 
 /**
  * Generating board functions
  */
+
+/**
+ * @description Resets all settings and starts new game
+ */
+function startGame() {
+  // Set defaults
+  openedCardId = null;
+  ready = true;
+  movesCount = 0;
+
+  // Stop timer if counting
+  stopTimer();
+  $('#timer-count').text('00:00');
+
+  // Reset stars and moves count
+  markStars(3);
+  $('#moves-count').text(movesCount);
+
+  $('.category').hide();
+  hideAndShow($('.board'), $('.difficulty'), 200);
+
+  // Clear the board
+  $('.board').html('');
+}
 
 /**
  * @description Sets the new timer
@@ -111,6 +139,9 @@ function setupBoard() {
 
   switch (difficulty) {
     case 'easy':
+      board.css('width', '600px');
+      board.css('height', '600px');
+      board.children('.card').css('width', '23%');
       break;
     case 'hard':
       board.css('width', '700px');

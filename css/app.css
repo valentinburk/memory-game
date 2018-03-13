@@ -26,6 +26,16 @@ header {
 
 .reload {
   float: right;
+  cursor: pointer;
+}
+
+.reload i {
+  margin: 0 10px 0 0;
+  transition: 0.3s all ease;
+}
+
+.reload:hover i {
+  transform: rotateZ(360deg);
 }
 
 /* Starting game rules */
