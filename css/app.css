@@ -166,9 +166,56 @@ header {
   max-width: 100%;
 }
 
+/* Congratulations window */
+.finish-window {
+  background-color: #fff;
+  text-align: center;
+  padding: 25px 0 50px;
+  position: absolute;
+  width: 50%;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.finish-rating {
+  color: #ffb300;
+  font-size: 5em;
+  padding: 0 0 25px;
+}
+
+.finish-reload {
+  display: inline-block;
+  margin: 40px 0 0;
+  background-color: #4b93ff;
+  padding: 5px 25px;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: 0.3s all ease;
+}
+
+.finish-reload:hover {
+  background-color: #386fc3;
+}
+
+.finish-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 /* Responsiveness */
 @media screen and (max-width: 800px) {
   body {
     max-width: 100%;
+    margin: 25px 15px;
+  }
+
+  .finish-window {
+    width: 100%;
   }
 }

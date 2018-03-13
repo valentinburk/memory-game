@@ -3,8 +3,8 @@
  */
 
 const MAX_NUMBER_OF_PICTURES = 18;
-const EASY_LEVEL = 16;
-const HARD_LEVEL = 36;
+const EASY_LEVEL_CARDS = 16;
+const HARD_LEVEL_CARDS = 36;
 const THREE_STARS_EASY = 15;
 const THREE_STARS_HARD = 25;
 
@@ -19,6 +19,7 @@ let category;
 let openedCardId;
 let ready;
 let movesCount;
+let openedCards;
 
 /**
  * Main Logic
@@ -64,7 +65,7 @@ $(document).ready(function() {
     hideAndShow($('.category'), $('.board'), 200);
   });
 
-  $('.reload').click(startGame);
+  $('.reload, .finish-reload').click(startGame);
 });
 
 /**
@@ -79,16 +80,18 @@ function startGame() {
   openedCardId = null;
   ready = true;
   movesCount = 0;
+  openedCards = 0;
 
   // Stop timer if counting
   stopTimer();
-  $('#timer-count').text('00:00');
+  $('.timer-count').text('00:00');
 
   // Reset stars and moves count
   markStars(3);
-  $('#moves-count').text(movesCount);
+  $('.moves-count').text(movesCount);
 
   $('.category').hide();
+  $('.finish').hide();
   hideAndShow($('.board'), $('.difficulty'), 200);
 
   // Clear the board
@@ -96,10 +99,18 @@ function startGame() {
 }
 
 /**
+ * @description Finishes the game
+ */
+function finishGame() {
+  stopTimer();
+  $('.finish').fadeIn(200);
+}
+
+/**
  * @description Sets the new timer
  */
 function startTimer() {
-  const timerElement = $('#timer-count');
+  const timerElement = $('.timer-count');
   timerElement.text('00:00');
   start = new Date();
   timer = setInterval(function() {
@@ -173,10 +184,10 @@ function generateCards() {
   let cardsNumber;
   switch (difficulty) {
     case 'easy':
-      cardsNumber = EASY_LEVEL;
+      cardsNumber = EASY_LEVEL_CARDS;
       break;
     case 'hard':
-      cardsNumber = HARD_LEVEL;
+      cardsNumber = HARD_LEVEL_CARDS;
       break;
   }
 
@@ -273,7 +284,7 @@ function createElementWithClass(element, css) {
  */
 function updateMoves() {
   movesCount = movesCount + 1;
-  $('#moves-count').text(movesCount);
+  $('.moves-count').text(movesCount);
 
   let threeStarsMoves = THREE_STARS_EASY;
   switch (difficulty) {
@@ -327,6 +338,22 @@ function flipCard(card) {
  * @param {number} cardId The id of the card
  */
 function setSuccess(cardId) {
+  openedCards += 2;
+
+  let isFinished = false;
+  switch (difficulty) {
+    case 'easy':
+      isFinished = openedCards === EASY_LEVEL_CARDS;
+      break;
+    case 'hard':
+      isFinished = openedCards === HARD_LEVEL_CARDS;
+      break;
+  }
+
+  if (isFinished) {
+    finishGame();
+  }
+
   $(`div[data-card-id=${cardId}]`).attr('data-success', true);
 }
 
