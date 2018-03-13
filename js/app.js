@@ -150,14 +150,14 @@ function setupBoard() {
 
   switch (difficulty) {
     case 'easy':
-      board.css('width', '600px');
-      board.css('height', '600px');
+      board.css('max-width', '600px');
       board.children('.card').css('width', '23%');
+      board.children('.card').css('padding-bottom', '23%');
       break;
     case 'hard':
-      board.css('width', '700px');
-      board.css('height', '700px');
+      board.css('max-width', '700px');
       board.children('.card').css('width', '14.6666%');
+      board.children('.card').css('padding-bottom', '14.6666%');
       break;
   }
 

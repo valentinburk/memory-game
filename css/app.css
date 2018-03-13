@@ -15,6 +15,7 @@ header {
 /* Stats rules */
 .stats {
   min-height: 50px;
+  margin: 0 15px;
 }
 
 .rating,
@@ -100,13 +101,10 @@ header {
   flex-wrap: wrap;
   padding: 15px;
   background-color: #fff;
-  height: 600px;
-  width: 600px;
   margin: 0 auto;
 }
 
 .card {
-  width: 23%;
   margin: 1%;
   perspective: 1000px;
 }
@@ -116,7 +114,6 @@ header {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
   transform-style: preserve-3d;
-  position: relative;
 }
 
 .flipper:hover {
@@ -142,6 +139,7 @@ header {
 .card-front {
   height: 100%;
   width: 100%;
+  position: absolute;
 }
 
 .card-back,
@@ -212,7 +210,10 @@ header {
 @media screen and (max-width: 800px) {
   body {
     max-width: 100%;
-    margin: 25px 15px;
+  }
+
+  .board {
+    padding: 0;
   }
 
   .finish-window {
