@@ -14,18 +14,17 @@ const THREE_STARS_HARD = 25;
 
 let start;
 let timer;
+let difficulty = 'easy';
+let category = 'sweets';
+let openedCardId = null;
+let ready = true;
+let movesCount = 0;
 
 /**
  * Main Logic
  */
 
 $(document).ready(function() {
-  let difficulty = 'easy';
-  let category = 'sweets';
-  let openedCardId = null;
-  let ready = true;
-  let movesCount = 0;
-
   // Set difficulty of the game
   $('.difficulty').on('click', '.difficulty-level', function() {
     difficulty = $(this).attr('data-difficulty');
@@ -35,7 +34,7 @@ $(document).ready(function() {
   // Set category of cards
   $('.category').on('click', '.category-type', function() {
     category = $(this).attr('data-category');
-    setupBoard(difficulty, category);
+    setupBoard();
     hideAndShow($('.category'), $('.board'), 200);
   });
 
@@ -48,7 +47,7 @@ $(document).ready(function() {
 
     // if another card is open
     if (openedCardId !== null) {
-      movesCount = updateMoves(movesCount, difficulty);
+      updateMoves();
 
       if (currentId === openedCardId) {
         setSuccess(currentId);
@@ -103,13 +102,11 @@ function pad(number) {
 
 /**
  * @description Sets up the gaming board
- * @param {string} difficulty Difficulty of the game
- * @param {string} category Category of cards
  */
-function setupBoard(difficulty, category) {
+function setupBoard() {
   const board = $('.board');
 
-  const cards = generateCards(difficulty, category);
+  const cards = generateCards();
   board.append(cards);
 
   switch (difficulty) {
@@ -139,13 +136,11 @@ function hideAndShow(first, second, duration) {
 
 /**
  * @description Generates the DOM Fragment with cards on it
- * @param {string} level Difficulty of the game - i.e. medium or hard
- * @param {string} category Category of the cards
  * @returns {DocumentFragment} DOM Fragment with cards on it
  */
-function generateCards(level, category) {
+function generateCards() {
   let cardsNumber;
-  switch (level) {
+  switch (difficulty) {
     case 'easy':
       cardsNumber = EASY_LEVEL;
       break;
@@ -158,7 +153,7 @@ function generateCards(level, category) {
 
   const ids = getRandomIds(cardsNumber);
   for (const id of ids) {
-    const card = getCard(id, category);
+    const card = getCard(id);
     fragment.appendChild(card);
   }
 
@@ -207,7 +202,7 @@ function shuffle(a) {
  * @param {string} category Category of the card
  * @return {Element} New card
  */
-function getCard(id, category) {
+function getCard(id) {
   const card = createElementWithClass('div', 'card');
 
   const flipper = createElementWithClass('div', 'flipper');
@@ -244,12 +239,10 @@ function createElementWithClass(element, css) {
 
 /**
  * @description Updates the element whis moves count and records new value
- * @param {number} count Current number of moves
- * @returns Incremented number of moves
  */
-function updateMoves(count, difficulty) {
-  const updated = count + 1;
-  $('#moves-count').text(updated);
+function updateMoves() {
+  movesCount = movesCount + 1;
+  $('#moves-count').text(movesCount);
 
   let threeStarsMoves = THREE_STARS_EASY;
   switch (difficulty) {
@@ -259,16 +252,14 @@ function updateMoves(count, difficulty) {
   }
 
   let stars = 3;
-  if (updated > threeStarsMoves) {
+  if (movesCount > threeStarsMoves) {
     stars = 2;
   }
-  if (updated > threeStarsMoves * 1.5) {
+  if (movesCount > threeStarsMoves * 1.5) {
     stars = 1;
   }
 
   markStars(stars);
-
-  return updated;
 }
 
 /**
