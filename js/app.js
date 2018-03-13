@@ -9,6 +9,13 @@ const THREE_STARS_EASY = 15;
 const THREE_STARS_HARD = 25;
 
 /**
+ * Variables
+ */
+
+let start;
+let timer;
+
+/**
  * Main Logic
  */
 
@@ -62,6 +69,39 @@ $(document).ready(function() {
  */
 
 /**
+ * @description Sets the new timer
+ */
+function startTimer() {
+  const timerElement = $('#timer-count');
+  timerElement.text('00:00');
+  start = new Date();
+  timer = setInterval(function() {
+    const elapsed = new Date() - start;
+
+    const minutes = Math.floor(elapsed / (60 * 1000));
+    const seconds = ((elapsed % (60 * 1000)) / 1000).toFixed(0);
+
+    timerElement.text(`${pad(minutes)}:${pad(seconds)}`);
+  }, 1000);
+}
+
+/**
+ * @description Stops the timer
+ */
+function stopTimer() {
+  clearInterval(timer);
+}
+
+/**
+ * @description Pads the number with leading zero
+ * @param {number} number The number to pad
+ * @returns {string} String representing padded number with leading zero
+ */
+function pad(number) {
+  return `${number}`.padStart(2, '0');
+}
+
+/**
  * @description Sets up the gaming board
  * @param {string} difficulty Difficulty of the game
  * @param {string} category Category of cards
@@ -81,6 +121,8 @@ function setupBoard(difficulty, category) {
       board.children('.card').css('width', '14.6666%');
       break;
   }
+
+  startTimer();
 }
 
 /**
