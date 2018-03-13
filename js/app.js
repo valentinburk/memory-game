@@ -5,6 +5,8 @@
 const MAX_NUMBER_OF_PICTURES = 18;
 const EASY_LEVEL = 16;
 const HARD_LEVEL = 36;
+const THREE_STARS_EASY = 15;
+const THREE_STARS_HARD = 25;
 
 /**
  * Main Logic
@@ -39,7 +41,7 @@ $(document).ready(function() {
 
     // if another card is open
     if (openedCardId !== null) {
-      movesCount = updateMoves(movesCount);
+      movesCount = updateMoves(movesCount, difficulty);
 
       if (currentId === openedCardId) {
         setSuccess(currentId);
@@ -203,10 +205,47 @@ function createElementWithClass(element, css) {
  * @param {number} count Current number of moves
  * @returns Incremented number of moves
  */
-function updateMoves(count) {
+function updateMoves(count, difficulty) {
   const updated = count + 1;
   $('#moves-count').text(updated);
+
+  let threeStarsMoves = THREE_STARS_EASY;
+  switch (difficulty) {
+    case 'hard':
+      threeStarsMoves = THREE_STARS_HARD;
+      break;
+  }
+
+  let stars = 3;
+  if (updated > threeStarsMoves) {
+    stars = 2;
+  }
+  if (updated > threeStarsMoves * 1.5) {
+    stars = 1;
+  }
+
+  markStars(stars);
+
   return updated;
+}
+
+/**
+ * @description Marks the stars on stats bar
+ * @param {number} stars How much stars to mark
+ */
+function markStars(stars) {
+  const markedClass = 'fas';
+  const unmarkedClass = 'far';
+
+  for(let i = 1; i <= 3; i++) {
+    const star = $(`i[data-star='${i}']`);
+
+    const addClass = i <= stars ? markedClass : unmarkedClass;
+    const removeClass = i <= stars ? unmarkedClass : markedClass;
+
+    star.addClass(addClass);
+    star.removeClass(removeClass);
+  }
 }
 
 /**
