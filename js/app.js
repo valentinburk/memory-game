@@ -16,6 +16,7 @@ let start;
 let timer;
 let difficulty;
 let category;
+let openedCard;
 let openedCardId;
 let ready;
 let movesCount;
@@ -36,19 +37,21 @@ $(document).ready(function() {
     const currentId = flipCard($(this));
 
     // if another card is open
-    if (openedCardId !== null) {
+    if (openedCard !== null) {
       updateMoves();
 
       if (currentId === openedCardId) {
         setSuccess(currentId);
       } else {
-        flipWrongCards();
+        flipWrongCards(openedCard, $(this));
       }
 
       // reset
+      openedCard = null;
       openedCardId = null;
     } else {
       openedCardId = currentId;
+      openedCard = $(this);
     }
   });
 
@@ -77,6 +80,7 @@ $(document).ready(function() {
  */
 function startGame() {
   // Set defaults
+  openedCard = null;
   openedCardId = null;
   ready = true;
   movesCount = 0;
@@ -361,10 +365,16 @@ function setSuccess(cardId) {
 
 /**
  * @description Flips only wrong cards
+ * @param {Array} cards Array of jQuery objects representing wrong cards
  */
-function flipWrongCards() {
-  setTimeout(function() {
-    $('.card:not([data-success])').find('.flipper')
-      .removeClass('flipper-open');
-  }, 500);
+function flipWrongCards(...cards) {
+  for (const card of cards) {
+    setTimeout(function() {
+      card.addClass('animated shake');
+    }, 200);
+    setTimeout(function() {
+      card.removeClass('animated shake');
+      card.find('.flipper').removeClass('flipper-open');
+    }, 1000);
+  }
 }
