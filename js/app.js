@@ -354,7 +354,9 @@ function setSuccess(cardId) {
     finishGame();
   }
 
-  $(`div[data-card-id=${cardId}]`).attr('data-success', true);
+  const cards = $(`div[data-card-id=${cardId}]`);
+  cards.attr('data-success', true);
+  cards.addClass('animated tada');
 }
 
 /**
