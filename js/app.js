@@ -22,6 +22,7 @@ let openedCardId;
 let ready;
 let movesCount;
 let openedCards;
+let opened;
 
 /**
  * Main Logic
@@ -31,7 +32,7 @@ $(document).ready(function() {
   startGame();
 
   $('.board').on('click', '.card', function() {
-    if ($(this).is('[data-success]')) {
+    if (opened || $(this).is('[data-open]')) {
       return;
     }
 
@@ -39,6 +40,8 @@ $(document).ready(function() {
 
     // if another card is open
     if (openedCard !== null) {
+      opened = true;
+
       updateMoves();
 
       if (currentId === openedCardId) {
@@ -96,6 +99,7 @@ function startGame() {
   ready = true;
   movesCount = 0;
   openedCards = 0;
+  opened = false;
 
   // Stop timer if counting
   stopTimer();
@@ -345,6 +349,7 @@ function markStars(stars) {
  */
 function flipCard(card) {
   card.find('.flipper').addClass('flipper-open');
+  card.attr('data-open', true);
   return card.attr('data-card-id');
 }
 
@@ -370,8 +375,9 @@ function setSuccess(cardId) {
   }
 
   const cards = $(`div[data-card-id=${cardId}]`);
-  cards.attr('data-success', true);
   cards.addClass('animated tada');
+
+  opened = false;
 }
 
 /**
@@ -384,8 +390,10 @@ function flipWrongCards(...cards) {
       card.addClass('animated shake');
     }, ANIMATION_SPEED);
     setTimeout(function() {
+      card.removeAttr('data-open');
       card.removeClass('animated shake');
       card.find('.flipper').removeClass('flipper-open');
-    }, 1000);
+      opened = false;
+    }, ANIMATION_SPEED + 800);
   }
 }
