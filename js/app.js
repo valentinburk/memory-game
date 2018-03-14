@@ -74,6 +74,12 @@ $(document).ready(function() {
   $('.instructions-toggle').click(function() {
     $('.instructions-content').fadeToggle(ANIMATION_SPEED);
   });
+
+  $(document).keypress(function(e) {
+    if (e.which === 114) {
+      startGame();
+    }
+  });
 });
 
 /**
