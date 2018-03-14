@@ -7,6 +7,7 @@ const EASY_LEVEL_CARDS = 16;
 const HARD_LEVEL_CARDS = 36;
 const THREE_STARS_EASY = 15;
 const THREE_STARS_HARD = 25;
+const ANIMATION_SPEED = 200;
 
 /**
  * Variables
@@ -58,17 +59,21 @@ $(document).ready(function() {
   // Set difficulty of the game
   $('.difficulty').on('click', '.difficulty-level', function() {
     difficulty = $(this).attr('data-difficulty');
-    hideAndShow($('.difficulty'), $('.category'), 200);
+    hideAndShow($('.difficulty'), $('.category'), ANIMATION_SPEED);
   });
 
   // Set category of cards
   $('.category').on('click', '.category-type', function() {
     category = $(this).attr('data-category');
     setupBoard();
-    hideAndShow($('.category'), $('.board'), 200);
+    hideAndShow($('.category'), $('.board'), ANIMATION_SPEED);
   });
 
   $('.reload, .finish-reload').click(startGame);
+
+  $('.instructions-toggle').click(function() {
+    $('.instructions-content').fadeToggle(ANIMATION_SPEED);
+  });
 });
 
 /**
@@ -96,7 +101,7 @@ function startGame() {
 
   $('.category').hide();
   $('.finish').hide();
-  hideAndShow($('.board'), $('.difficulty'), 200);
+  hideAndShow($('.board'), $('.difficulty'), ANIMATION_SPEED);
 
   // Clear the board
   $('.board').html('');
@@ -107,7 +112,7 @@ function startGame() {
  */
 function finishGame() {
   stopTimer();
-  $('.finish').fadeIn(200);
+  $('.finish').fadeIn(ANIMATION_SPEED);
 }
 
 /**
@@ -371,7 +376,7 @@ function flipWrongCards(...cards) {
   for (const card of cards) {
     setTimeout(function() {
       card.addClass('animated shake');
-    }, 200);
+    }, ANIMATION_SPEED);
     setTimeout(function() {
       card.removeClass('animated shake');
       card.find('.flipper').removeClass('flipper-open');

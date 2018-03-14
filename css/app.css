@@ -206,6 +206,41 @@ header {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+/* Instructions window */
+.instructions-content,
+.instructions-toggle {
+  position: fixed;
+  top: 0;
+  right: 0;
+  text-align: left;
+}
+
+.instructions-content {
+  padding: 10px 30px;
+  background-color: #fff;
+}
+
+.instructions-toggle {
+  right: 30px;
+  top: 20px;
+  color: #bbb;
+  cursor: pointer;
+  font-size: 2em;
+  background-color: #fff;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  text-align: center;
+  transition: 0.3s all ease;
+}
+
+.instructions-toggle:hover {
+  transform: rotateY(360deg);
+}
+
 /* Responsiveness */
 @media screen and (max-width: 800px) {
   body {
