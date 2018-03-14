@@ -34,13 +34,16 @@ h1 {
   cursor: pointer;
 }
 
-.reload i {
-  margin: 0 10px 0 0;
+.icon {
   transition: 0.3s all ease;
 }
 
-.reload:hover i {
+.reload:hover .icon {
   transform: rotateZ(360deg);
+}
+
+.subtext {
+  margin: 0 0 0 10px;
 }
 
 /* Starting game rules */
@@ -57,9 +60,9 @@ h1 {
   margin: 30px 10px;
   font-size: 2.5em;
   cursor: pointer;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
   transition: 0.1s all ease;
 }
 
@@ -77,9 +80,9 @@ h1 {
 .category-type:hover
  {
   font-size: 3em;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
 }
 
 .hover-text {
@@ -87,8 +90,10 @@ h1 {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
+  color: #fff;
+  line-height: 80px;
 }
 
 .level-easy {
@@ -224,24 +229,28 @@ h1 {
   background-color: #fff;
 }
 
-.instructions-toggle {
+.instructions-toggle,
+.instructions-toggle-mark {
   right: 30px;
   top: 20px;
   color: #bbb;
   cursor: pointer;
-  font-size: 2em;
-  background-color: #fff;
+  font-size: 1.5em;
   width: 70px;
   height: 70px;
-  line-height: 70px;
-  border-radius: 50%;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  text-align: center;
-  transition: 0.3s all ease;
 }
 
-.instructions-toggle:hover {
+.instructions-toggle-mark {
+  background-color: #fff;
+  line-height: 70px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  text-align: center;
+  transition: 0.5s all ease;
+}
+
+.instructions-toggle:hover .instructions-toggle-mark {
   transform: rotateY(360deg);
 }
 
