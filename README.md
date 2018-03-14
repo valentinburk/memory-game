@@ -24,7 +24,7 @@ Full game is available on my website https://burk.in/pairs
 
 It is a great way to practice your memory. The player has to pick two cards. If cards are with the same picture both stay on the board turned front side up. If the cards have different pictures they flip back and the player has to memorize them and continue trying to find equal ones.
 
-There are two difficulty levels in this game: **easy** and **hard**. When easy level is chosen there are 16 cards on the board. On the hard level there are 32 cards.
+There are two difficulty levels in this game: **easy** and **hard**. When easy level is chosen there are 16 cards on the board. On the hard level there are 36 cards.
 
 The player is available to play with *three* categories of cards: sweets, pets and toys. Every category has its own pictures on cards.
 
