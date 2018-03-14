@@ -12,6 +12,10 @@ header {
   text-align: center;
 }
 
+h1 {
+  font-size: 3em;
+}
+
 /* Stats rules */
 .stats {
   min-height: 50px;
