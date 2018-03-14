@@ -30,7 +30,7 @@ The player is available to play with *three* categories of cards: sweets, pets a
 
 The game is finished when all cards turned front side up.
 
-It is available to start game from the beginning by pressing "Start New" button at any moment.
+It is available to start game from the beginning by pressing "Start New" button at any moment. Player is allowed to press 'R' key to restart the game.
 
 ## Contents
 
